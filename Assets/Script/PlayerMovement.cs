@@ -14,17 +14,61 @@ public class PlayerMovement : MonoBehaviour
     private int Speed = 400;
     [SerializeField]
     private float moveThreshold = 0.02f;
-    private int currentMode = -1; 
+
+
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.1f;
+    private bool isGrounded;
+    private bool jumpTriggered = false;
+
+
+
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
     }
 
+    void Update()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        float jumpForce = Mathf.Lerp(2f, 10f, Mathf.Clamp01(joystick.Vertical));
+        Debug.Log("Grounded: " + isGrounded);
+
+        if (isGrounded && animator.GetBool("isJumping"))
+            animator.SetBool("isJumping", false);
+
+         if (joystick.Vertical > 0.5f && isGrounded && !jumpTriggered)
+        {
+            Jump(jumpForce);
+            jumpTriggered = true;
+        }
+
+        if (joystick.Vertical <= 0.1f)
+            jumpTriggered = false;
+
+
+        if (joystick.Vertical < -0.5f && isGrounded)
+            animator.SetBool("isCrouchin", true);
+        else
+            animator.SetBool("isCrouchin", false);
+        
+
+
+    }
+
     void FixedUpdate()
     {
         float moveInput = joystick.Horizontal;
         Vector2 input = new Vector2(moveInput, 0);
+
+        print(moveInput);
+
+        if (isGrounded)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(moveInput));
+        }
 
         rb.linearVelocity = new Vector2(moveInput * Speed * Time.deltaTime, rb.linearVelocity.y);
 
@@ -36,23 +80,12 @@ public class PlayerMovement : MonoBehaviour
         {
             m_Player.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-
-        if (Mathf.Abs(moveInput) > moveThreshold)
-        {
-            SetMode(3);
-        }
-        else
-        {
-            SetMode(1); 
-        }
     }
 
-    void SetMode(int newMode)
+    public void Jump(float jumpForce)
     {
-        if (newMode != currentMode)
-        {
-            animator.SetInteger("Mode", newMode);
-            currentMode = newMode;
-        }
+        animator.SetBool("isJumping", true);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
     }
+
 }
