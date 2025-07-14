@@ -515,7 +515,7 @@ MonoBehaviour:
         - m_Target: {fileID: 593147158}
           m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
           m_MethodName: Jump
-          m_Mode: 1
+          m_Mode: 4
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1145,7 +1145,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1191,7 +1191,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.071350336, y: -0.07286337}
+  m_Offset: {x: -0.071350336, y: -0.24675441}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1201,7 +1201,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.60846335, y: 1.7925067}
+  m_Size: {x: 0.60846335, y: 1.4447246}
   m_EdgeRadius: 0
 --- !u!95 &830225523
 Animator:
@@ -1289,8 +1289,8 @@ Transform:
   m_GameObject: {fileID: 830225520}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10.080091}
-  m_LocalScale: {x: 1.7138, y: 1.9364, z: 1}
+  m_LocalPosition: {x: -0.5324, y: -1.7088, z: 10.080091}
+  m_LocalScale: {x: 1.6140629, y: 1.9049245, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1151028423}

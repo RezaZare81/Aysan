@@ -22,12 +22,17 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool jumpTriggered = false;
 
-
+    private BoxCollider2D boxCollider;
+    private Vector2 boxColliderSize;
+    private Vector2 boxColliderOffset;
 
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        boxCollider = GetComponentInChildren<BoxCollider2D>();
+        boxColliderSize = boxCollider.size;
+        boxColliderOffset = boxCollider.offset;
     }
 
     void Update()
@@ -50,11 +55,15 @@ public class PlayerMovement : MonoBehaviour
 
 
         if (joystick.Vertical < -0.5f && isGrounded)
+        {
             animator.SetBool("isCrouchin", true);
+            ChangeColider(new Vector2(1f , 0.5f), new Vector2(0f , -0.72f));
+        }
         else
+        {
             animator.SetBool("isCrouchin", false);
-        
-
+            ChangeColider(boxColliderSize, boxColliderOffset);
+        }
 
     }
 
@@ -86,6 +95,12 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetBool("isJumping", true);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    }
+
+    private void ChangeColider(Vector2 newColliderSize, Vector2 newColliderOffset)
+    {
+        boxCollider.size = newColliderSize;
+        boxCollider.offset = newColliderOffset;
     }
 
 }
