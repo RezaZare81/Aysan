@@ -30,13 +30,13 @@ public class PlayerAttacking : MonoBehaviour
                 ResetCombo();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            TryAttack();
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    TryAttack();
+        //}
     }
 
-    private void TryAttack()
+    public void TryAttack()
     {
         if (isAttacking) return;
 
